@@ -1,27 +1,27 @@
 ---
-import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildRacCoreNav } from '../../lib/rac-core-nav';
 
-const rawEntries = (await getCollection('rac-core')).sort((a, b) => a.id.localeCompare(b.id));
-const entries = await Promise.all(
-  rawEntries.map(async (entry) => {
-    const { headings } = await render(entry);
-    const title = entry.data.title ?? headings.find((h) => h.depth === 1)?.text ?? entry.id;
-    return { entry, title };
-  }),
-);
+const nav = await buildRacCoreNav();
 ---
 <BaseLayout title="rac-core docs — itsthelore">
-  <p class="eyebrow">rac-core</p>
-  <h1>Documentation</h1>
-  <p class="prose">
-    Vendored from <a href="https://github.com/itsthelore/rac-core">itsthelore/rac-core</a>'s
-    <code>docs/</code> at build time (ADR-101). This content is never edited
-    here — it always mirrors the source repository.
-  </p>
-  <ul>
-    {entries.map(({ entry, title }) => (
-      <li><a href={`/rac-core/${entry.id.replace(/\.md$/, '')}/`}>{title}</a></li>
-    ))}
-  </ul>
+  <div class="docs-sidebar">
+    <nav class="docs-nav">
+      <a class="back" href="/">&larr; itsthelore</a>
+      <ul>
+        {nav.map((item) => (
+          <li><a href={`/rac-core/${item.slug}/`}>{item.title}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div>
+      <p class="eyebrow">rac-core</p>
+      <h1>Documentation</h1>
+      <p class="prose">
+        Vendored from <a href="https://github.com/itsthelore/rac-core">itsthelore/rac-core</a>'s
+        <code>docs/</code> at build time (ADR-101). This content is never edited
+        here — it always mirrors the source repository.
+      </p>
+    </div>
+  </div>
 </BaseLayout>
