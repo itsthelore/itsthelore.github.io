@@ -1,10 +1,12 @@
 /*
- * Lore docs-site theme — translates the rac-localview design system
- * (rac/.. rac-localview/src/styles/tokens.css) onto MkDocs Material's slate
- * scheme, and styles the custom splash home (overrides/home.html).
+ * Lore org-site theme — a light variant of rac-core's rac-localview design
+ * system (rac-localview/src/styles/tokens.css), driving MkDocs Material's
+ * default (light) scheme. Same five rules, surfaces and text inverted from
+ * dark to light, amber/teal/green re-tuned for AA contrast on a light
+ * ground; rac-core's own dark tokens are unchanged.
  *
- * Five rules carried over from rac-localview/DESIGN.md:
- *   1. Three surfaces, warm near-black, never pure black.
+ * Five rules carried over from rac-localview/DESIGN.md (rule 1 inverted):
+ *   1. Three surfaces, warm near-white, never pure white.
  *   2. One hue dominates: the lantern amber. Teal/green are semantic only.
  *   3. Dashed borders = container chrome; solid borders = interactive.
  *   4. Mono everywhere (JetBrains Mono, weights 400/700).
@@ -27,26 +29,31 @@
   font-display: swap;
 }
 
-/* ---- tokens --------------------------------------------------------- */
+/* ---- tokens ----------------------------------------------------------
+ * Light surfaces (warm cream, not pure white); amber/teal/green deepened
+ * from rac-localview's dark-mode values so they hit WCAG AA as text on a
+ * light ground. --lore-accent-bright keeps the vivid original amber for
+ * solid fills (dark text on top); --lore-accent is the deepened version
+ * used for headings/links/accent text. */
 :root {
-  --lore-bg: #121212;
-  --lore-bg-panel: #1a1a18;
-  --lore-bg-element: #242420;
-  --lore-text: #d6d4cc;
-  --lore-text-muted: #8f8d84;
-  --lore-border-subtle: #2a2a26;
-  --lore-border: #3d3b34;
+  --lore-bg: #faf8f3;
+  --lore-bg-panel: #f2eee3;
+  --lore-bg-element: #e8e1cf;
+  --lore-text: #2b2a25;
+  --lore-text-muted: #6b6658;
+  --lore-border-subtle: #e3dbc5;
+  --lore-border: #d2c39d;
   --lore-border-active: #a8762a;
-  --lore-accent: #f5a623;
-  --lore-accent-bright: #ffb84d;
-  --lore-accent-muted: #3d2f14;
-  --lore-info: #4ec9b0;
-  --lore-success: #57c97a;
+  --lore-accent: #b3690c;
+  --lore-accent-bright: #f5a623;
+  --lore-accent-muted: #fbead1;
+  --lore-info: #12806d;
+  --lore-success: #1f7a43;
   --lore-mono: "JetBrains Mono", ui-monospace, "Courier New", monospace;
 }
 
-/* Drive Material's slate scheme from the lore palette. */
-[data-md-color-scheme="slate"] {
+/* Drive Material's default (light) scheme from the lore palette. */
+[data-md-color-scheme="default"] {
   --md-default-bg-color: var(--lore-bg);
   --md-default-fg-color: var(--lore-text);
   --md-default-fg-color--light: var(--lore-text-muted);
@@ -237,14 +244,14 @@ body,
   color: var(--lore-accent) !important;
 }
 .lore-btn--primary {
-  background: var(--lore-accent);
-  border-color: var(--lore-accent);
-  color: #121212 !important;
-}
-.lore-btn--primary:hover {
   background: var(--lore-accent-bright);
   border-color: var(--lore-accent-bright);
-  color: #121212 !important;
+  color: var(--lore-text) !important;
+}
+.lore-btn--primary:hover {
+  background: var(--lore-accent);
+  border-color: var(--lore-accent);
+  color: var(--lore-bg) !important;
 }
 .lore-btn--ghost {
   color: var(--lore-text-muted) !important;

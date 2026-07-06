@@ -14,7 +14,7 @@ theme:
   favicon: images/favicon.png
   logo: images/favicon.png
   palette:
-    scheme: slate
+    scheme: default
   features:
     - content.code.copy
     - navigation.top
