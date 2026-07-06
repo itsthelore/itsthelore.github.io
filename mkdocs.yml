@@ -12,6 +12,7 @@ theme:
   font: false
   language: en
   favicon: images/favicon.png
+  logo: images/favicon.png
   palette:
     scheme: default
   features:
