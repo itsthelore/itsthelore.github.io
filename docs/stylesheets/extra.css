@@ -154,13 +154,22 @@ body,
   color: var(--lore-text);
   box-shadow: none;
 }
-/* Wordmark comes from the styled site name; hide the image logo. */
+/* Lamplighter at icon size — one of the three shared brand constants
+   (ADR-102). 64px pixel art shown at 32px: a clean 2:1 integer downscale,
+   kept crisp with pixelated rendering. */
 .md-header__button.md-logo {
-  display: none;
+  padding: 0.4rem 0.2rem 0.4rem 0;
 }
+.md-header__button.md-logo img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+}
+/* Wordmark in the brand's mono voice, tying the site to the product UI. */
 .md-header__title {
-  font-weight: 650;
-  letter-spacing: -0.02em;
+  font-family: var(--lore-mono);
+  font-weight: 700;
+  letter-spacing: -0.01em;
   font-size: 1rem;
 }
 .md-search__form {
