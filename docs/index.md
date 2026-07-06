@@ -63,9 +63,19 @@ Serving happens over the [lore MCP server](rac-core/mcp.md); the
   <div class="lore-card"><h3>Wayfinder</h3>
     <p>Deterministic prompt-complexity routing — a hard-or-easy call on every
     prompt, offline, no model call.</p></div>
+  <div class="lore-card"><h3>rac-sdk</h3>
+    <p>Non-Python language SDKs — thin clients over the engine's stable
+    <code>--json</code> contracts.</p></div>
+  <div class="lore-card"><h3>rac-editors</h3>
+    <p>IDE and editor integrations, one subdir per client.</p></div>
+  <div class="lore-card"><h3>rac-ci</h3>
+    <p>The CI delivery surface — validation and gating wrappers, GitHub
+    first.</p></div>
+  <div class="lore-card"><h3>rac-benchmarks</h3>
+    <p>Evaluation suites, one subdir per benchmark.</p></div>
 </div>
 
-Plus SDKs, editor integrations, CI actions, and benchmarks — see the
+Plus rac-connectors and everything else — see the
 [full repository map](rac-core/ecosystem.md) or the
 [itsthelore org on GitHub](https://github.com/itsthelore).
 
