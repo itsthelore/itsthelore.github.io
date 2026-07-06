@@ -67,6 +67,26 @@ assumes every post lives under one `blog_dir`, which fought the actual
 authoring pattern. See git history if a real dated/multi-author blog is
 ever needed again — it's a small, well-understood revert.)
 
+## Social previews (Open Graph / Twitter Card)
+
+`overrides/main.html` extends Material's real `main.html` — which is itself
+just a one-line `{% extends "base.html" %}` pass-through, so this is a safe
+override — to add `og:*` and `twitter:*` meta tags to every page via
+`base.html`'s `extrahead` block (Material ships nothing here by default).
+
+- **Title/description** come from each page's frontmatter (`title:`,
+  `description:`) when set, falling back to `config.site_name` /
+  `site_description` for pages without them (the homepage always uses
+  `site_name`, since `docs/index.md` has no `title:`).
+- **Image** is one static card, `docs/images/social-card.png` (1200×630,
+  the standard OG size) — not per-page. It was composed as an HTML mockup
+  (brand tokens, the lamplighter, the product tagline) and rendered with
+  Playwright rather than a design tool; regenerate the same way if the
+  brand or tagline changes.
+- Add a `description:` to a page's frontmatter for a tailored social
+  preview instead of the generic site description (see
+  `docs/rac-spec/why-strict.md` for an example).
+
 ## Local development
 
 ```sh

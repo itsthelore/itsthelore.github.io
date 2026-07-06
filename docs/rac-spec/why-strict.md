@@ -1,5 +1,9 @@
 ---
 title: "Requirements as Code: a strict semantic layer over OKF"
+description: >-
+  Why RAC specifies a strict, enforced semantic layer for prescriptive
+  knowledge — identity, status lifecycle, typed relationships, write-time
+  enforcement — on top of OKF's deliberately permissive carrier.
 ---
 
 # Requirements as Code: a strict semantic layer over OKF
