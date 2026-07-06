@@ -49,9 +49,9 @@ validation:
 
 nav:
   - Home: index.md
-  - rac-spec:
+  - Essays:
+      - Overview: essays.md
       - "Why strict?": rac-spec/why-strict.md
-  - Essays: essays.md
   - Get started:
       - Overview: rac-core/index.md
       - Quickstart: rac-core/quickstart.md
