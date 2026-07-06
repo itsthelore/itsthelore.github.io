@@ -5,51 +5,66 @@ hide:
   - toc
 ---
 
-## What it is
+Agents that know *why*. **Deterministic. Read-only. No RAG, no guessing.**
 
-Your agent reintroduces an approach you rejected months ago. It rebuilds something you deliberately removed. The decision was written down — in an ADR nobody, human or agent, ever reopened.
+Lore keeps a team's recorded knowledge — requirements, decisions, designs,
+roadmaps, and prompts — as typed Markdown in the repo, validates it in CI, and
+serves it read-only to coding agents over MCP. Retrieval is deterministic and
+reproducible: no embeddings, no model call to decide what's relevant. The engine
+underneath is **RAC — Requirements as Code**, open source and built to be
+air-gapped; the trust boundary is human PR review, never the agent.
 
-Lore stores your requirements, decisions, designs, and roadmaps as typed Markdown in your repo, and serves them to Claude Code, Cursor, and Claude Desktop over MCP. The agent cites your decisions instead of violating them.
+## Start here
 
-No AI in the core. No inference. No guessing. Just your team's recorded knowledge, in your Git, handed to the agent that needs it.
+```bash
+pip install rac-core   # the rac CLI + the lore MCP server
+rac quickstart         # scaffold identity + your first artifact
+claude mcp add lore -- rac mcp
+```
 
-## Why this works
+Full documentation: [rac-core →](rac-core/index.md)
 
-The code is structured, the tests are automated, the infrastructure is versioned — but the *reasoning* behind what you build is scattered across tickets, chats, and dead docs. Agents can't act on what they can't read, so they re-litigate settled decisions.
+## The repositories
 
-Lore puts that reasoning back in the repo as typed, connected artifacts, then serves it to the agent through a deterministic interface. You write the decision once, in Markdown; RAC validates it, links it, and makes it retrievable — durable context for both humans and AI, with no proprietary format and no hosted platform.
+One repo per concern ([ADR-092](https://github.com/itsthelore/rac-core/blob/main/rac/decisions/adr-092-repository-topology.md)):
 
-## The constellation
+| Repository | What it is |
+|---|---|
+| [rac-core](https://github.com/itsthelore/rac-core) | The engine: the `rac` CLI, validation gates, and the read-only `lore` MCP server. **Docs live.** |
+| [wayfinder-router](https://github.com/itsthelore/wayfinder-router) | Deterministic prompt-complexity routing — a hard-or-easy call on every prompt, offline, no model call |
+| [proofkeeper](https://github.com/itsthelore/proofkeeper) | A bring-your-own-model agent that drives your app and leaves a re-runnable Playwright test as proof for each capability |
+| [rac-connectors](https://github.com/itsthelore/rac-connectors) | Export-contract consumers that feed memory, RAG, and graph backends — recall fuzzily there, verify in Lore |
+| [rac-sdk](https://github.com/itsthelore/rac-sdk) | Non-Python language SDKs — thin clients over the engine's stable `--json` contracts |
+| [rac-editors](https://github.com/itsthelore/rac-editors) | IDE / editor integrations, one subdir per client |
+| [rac-ci](https://github.com/itsthelore/rac-ci) | The CI delivery surface — validation and gating wrappers, GitHub first |
+| [rac-benchmarks](https://github.com/itsthelore/rac-benchmarks) | Evaluation suites, one subdir per benchmark |
 
-Lore is one brand, several repositories — each a concern, not a grab-bag ([topology decision](https://github.com/itsthelore/rac-core/blob/main/rac/decisions/adr-092-repository-topology.md)).
+## How the pieces fit
 
-<div class="lore-below__grid" markdown>
+- **rac-core** is the system of record: it captures *what* your product should
+  do and *why*, and enforces it at write time (`rac validate`, `rac gate`).
+- **Proofkeeper** closes the loop: it reads those capabilities over the
+  published export contract, drives your product, and proposes verification
+  evidence back by pull request.
+- **Wayfinder** is a sibling, not a consumer — routing is a runtime concern,
+  not a knowledge one. It began as an experiment inside RAC and was split out.
+- Everything else (connectors, SDKs, editors, CI) is a thin surface over the
+  engine's stable contracts — the engine stays deterministic, offline, and
+  in one place.
 
-<div class="lore-below__card" markdown>
-### [rac-core →](rac-core/index.md)
-The engine and CLI. Artifact schemas, validation, relationships, the MCP server. **Live.**
-</div>
+## Principles
 
-<div class="lore-below__card lore-below__card--disabled" markdown>
-### rac-ci
-CI delivery — Watchkeeper, Gatekeeper, and audit actions. **Coming soon.**
-</div>
+- **Markdown-first.** Every artifact is plain Markdown with a small
+  frontmatter envelope, versioned next to the code.
+- **Deterministic over probabilistic.** Classification, retrieval, routing,
+  and eval scoring make no model calls; the same input gives the same answer.
+- **Read-only at serve time.** Agents cite recorded decisions by ID; they
+  cannot mutate the store. Changes land through human-reviewed PRs.
+- **Enforced in CI.** Malformed artifacts, broken links, and references to
+  superseded decisions are rejected before the knowledge lands.
 
-<div class="lore-below__card lore-below__card--disabled" markdown>
-### rac-connectors
-Inbound and outbound integrations. **Coming soon.**
-</div>
+## Project status
 
-</div>
-
-## How Lore earns trust
-
-- **No AI in the core.** Retrieval is deterministic: the same repo state and the same query always return the same result.
-- **It dogfoods itself.** Lore's own planning corpus is validated by RAC in CI — if the tool's rules break the tool's own artifacts, the build fails.
-- **Output is a contract.** Golden tests pin CLI and MCP output; any change to what the tools return is reviewed as a product change.
-
----
-
-Lore is early and evolving quickly. Contributions, ideas, and experiments welcome — see the [rac-core repository](https://github.com/itsthelore/rac-core).
-
-[GitHub org](https://github.com/itsthelore)
+Everything here is early and evolving quickly. Contributions, ideas, and
+experiments welcome — start with the
+[rac-core repository](https://github.com/itsthelore/rac-core).

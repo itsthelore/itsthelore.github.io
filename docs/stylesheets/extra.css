@@ -304,34 +304,3 @@ body,
     white-space: normal;
   }
 }
-
-/* ===================================================================== */
-/* Org-root product portfolio grid (docs/index.md, "The constellation")  */
-/* ===================================================================== */
-.lore-below__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.lore-below__card {
-  background: var(--lore-bg-panel);
-  border: 1px dashed var(--lore-border);
-  padding: 1rem 1.25rem;
-}
-
-.lore-below__card h3 {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  border-top: 0 !important;
-  font-size: 1rem;
-}
-
-.lore-below__card a {
-  color: var(--lore-accent);
-}
-
-.lore-below__card--disabled {
-  opacity: 0.55;
-}
