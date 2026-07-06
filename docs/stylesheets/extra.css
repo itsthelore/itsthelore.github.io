@@ -293,6 +293,20 @@ body,
   padding: 0;
 }
 
+/* Org-wide star count (scripts/fetch-org-stats.sh); hidden entirely when
+   the count is 0 (see the Jinja guard in overrides/home.html). */
+.md-typeset .lore-splash__stars {
+  margin: -0.5rem 0 0;
+  font-size: 0.8125rem;
+}
+.md-typeset .lore-splash__stars a {
+  color: var(--lore-text-muted);
+  text-decoration: none;
+}
+.md-typeset .lore-splash__stars a:hover {
+  color: var(--lore-accent);
+}
+
 /* ---- buttons ----------------------------------------------------------- */
 .lore-cta {
   display: flex;

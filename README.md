@@ -19,19 +19,33 @@ etc.) resolve correctly with no rewriting.
 The rationale and contract are recorded in `rac-core`'s
 [ADR-101](https://github.com/itsthelore/rac-core/blob/main/rac/decisions/adr-101-org-docs-site-and-topology.md).
 
-Brand assets (`overrides/home.html`, `docs/stylesheets/extra.css`,
-`docs/fonts/`, `docs/images/favicon.png` + `lamplighter.png`) are one-time
-copies of `rac-core`'s `rac-localview` design system (see that repo's
-`rac-localview/DESIGN.md` for the underlying rules) and its existing MkDocs
-theme setup — this org site now owns the canonical copies per ADR-092
-("the brand lives at the org").
+The site's own visual identity (light theme, Inter for prose, JetBrains
+Mono for code, the lamplighter at icon size only) is recorded in `rac-core`'s
+[ADR-102](https://github.com/itsthelore/rac-core/blob/main/rac/decisions/adr-102-org-site-brand-direction.md):
+it deliberately *rhymes with, but does not match*, `rac-core`'s
+`rac-localview` product-UI theme (dark, mono-everywhere) — three shared
+constants (the amber accent, mono-for-code, the lamplighter), everything
+else per surface. Brand assets (`docs/fonts/`,
+`docs/images/favicon.png` + `lamplighter.png`) are one-time copies of
+`rac-localview`'s source files; this org site owns the canonical copies per
+ADR-092 ("the brand lives at the org").
 
 Adding a new product section:
 
-1. Add a `vendor_repo <slug> <repo> <ref> <path>` line to
-   `scripts/vendor-docs.sh`.
+1. Add a `vendor_repo` call to `scripts/vendor-docs.sh`.
 2. Add its pages to the `nav:` list in `mkdocs.yml`.
-3. Add a card to the "constellation" grid in `docs/index.md`.
+3. Add a card to "The ecosystem" grid in `docs/index.md`.
+
+## Org-wide star count
+
+The hero shows a "★ N stars across itsthelore's open-source repos" line,
+sourced by `scripts/fetch-org-stats.sh` (sums `stargazers_count` across the
+org's public repos via the GitHub API) and exposed to `overrides/home.html`
+through `mkdocs.yml`'s `extra.total_org_stars` (an `!ENV` tag reading the
+`TOTAL_ORG_STARS` env var the script sets). Requires a `GITHUB_TOKEN` with
+read access — the deploy workflow uses the default `secrets.GITHUB_TOKEN`.
+Without a token (e.g. local `mkdocs serve`), the count defaults to 0 and the
+hero hides the line entirely.
 
 ## Local development
 
