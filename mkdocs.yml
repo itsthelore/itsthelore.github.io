@@ -58,6 +58,8 @@ validation:
 
 nav:
   - Home: index.md
+  - rac-spec:
+      - "Why strict?": rac-spec/why-strict.md
   - Essays: blog/index.md
   - Get started:
       - Overview: rac-core/index.md
