@@ -28,6 +28,10 @@ extra_css:
 copyright: "© 2026 itsthelore"
 
 extra:
+  # Set by scripts/fetch-org-stats.sh via the TOTAL_ORG_STARS env var
+  # (GitHub Actions only — GITHUB_TOKEN gives org-wide read access there).
+  # Falls back to 0 for local builds; the hero hides the stat at 0.
+  total_org_stars: !ENV [TOTAL_ORG_STARS, 0]
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/itsthelore

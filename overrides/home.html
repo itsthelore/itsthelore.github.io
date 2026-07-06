@@ -30,6 +30,12 @@
       <a class="lore-btn lore-btn--primary" href="{{ 'rac-core/quickstart/' | url }}">Quickstart →</a>
       <a class="lore-btn" href="https://github.com/itsthelore">View on GitHub</a>
     </nav>
+
+    {% if config.extra.total_org_stars and config.extra.total_org_stars | int > 0 %}
+    <p class="lore-splash__stars">
+      <a href="https://github.com/itsthelore">★ {{ config.extra.total_org_stars }} stars across itsthelore's open-source repos</a>
+    </p>
+    {% endif %}
   </div>
 </section>
 
