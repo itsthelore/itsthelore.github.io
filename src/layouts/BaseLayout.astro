@@ -1,5 +1,9 @@
 ---
+import '@fontsource-variable/inter';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
+import Logo from '../components/Logo.astro';
 
 interface Props {
   title: string;
@@ -15,12 +19,18 @@ const { title, description = 'Lore — requirements-as-code for AI-assisted prod
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
     <header class="site-header">
       <nav>
-        <a class="brand" href="/">itsthelore</a>
+        <a class="brand" href="/">
+          <Logo size={26} />
+          <span>itsthelore</span>
+        </a>
         <div class="links">
           <a href="/rac-core/">rac-core</a>
           <a href="https://github.com/itsthelore">GitHub</a>
@@ -31,7 +41,10 @@ const { title, description = 'Lore — requirements-as-code for AI-assisted prod
       <slot />
     </main>
     <footer class="site-footer">
-      <div>&copy; {new Date().getFullYear()} itsthelore. Built with Astro.</div>
+      <div>
+        <span>&copy; {new Date().getFullYear()} itsthelore</span>
+        <a href="https://github.com/itsthelore">GitHub</a>
+      </div>
     </footer>
   </body>
 </html>
