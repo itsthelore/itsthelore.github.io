@@ -36,6 +36,11 @@ Adding a new product section:
 2. Add its pages to the `nav:` list in `mkdocs.yml`.
 3. Add a card to "The ecosystem" grid in `docs/index.md`.
 
+**The homepage hero is temporarily spec-led** (headline, CTAs, and eyebrow
+all point at the rac-spec announcement essay, per an explicit "for now"
+request) instead of the previous product pitch — see the comment at the
+top of `overrides/home.html` for what to restore and why.
+
 ## Org-wide star count
 
 The hero shows a "★ N stars across itsthelore's open-source repos" line,
@@ -49,25 +54,18 @@ hero hides the line entirely.
 
 ## Essays
 
-Long-form essays live at `/blog/` (nav label "Essays"), via MkDocs
-Material's built-in [blog plugin](https://squidfunk.github.io/mkdocs-material/plugins/blog/) —
-captured as intent in `rac-core`'s
-[future roadmap](https://github.com/itsthelore/rac-core/blob/main/rac/roadmaps/future/org-site-rac-spec-surface.md)
-ahead of rac-spec's own arrival. To publish one:
+`docs/essays.md` (nav label "Essays") is a **hand-curated index**, not an
+auto-generated blog. An essay lives wherever it makes most sense — a spec
+announcement lives inside the relevant section (e.g.
+`docs/rac-spec/why-strict.md`) rather than a generic `/blog/` — and gets one
+card added to `docs/essays.md` linking to it. This is deliberate: essays
+don't all belong under one directory, so there's nothing for a plugin to
+auto-discover.
 
-1. Add `docs/blog/posts/<slug>.md` with frontmatter:
-   ```yaml
-   ---
-   date: 2026-01-15
-   authors: [itsthelore]
-   ---
-   ```
-2. Write the excerpt, then `<!-- more -->`, then the rest of the post.
-3. Author identity comes from `docs/blog/.authors.yml` — add a new entry
-   there for a named author instead of the shared `itsthelore` one.
-
-Categories and the archive are off (`categories: false`, `archive: false`
-in `mkdocs.yml`) until there's enough volume to need them.
+(An earlier pass tried MkDocs Material's built-in blog plugin for this; it
+assumes every post lives under one `blog_dir`, which fought the actual
+authoring pattern. See git history if a real dated/multi-author blog is
+ever needed again — it's a small, well-understood revert.)
 
 ## Local development
 
