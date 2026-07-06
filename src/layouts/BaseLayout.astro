@@ -1,9 +1,5 @@
 ---
-import '@fontsource-variable/inter';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
-import Logo from '../components/Logo.astro';
 
 interface Props {
   title: string;
@@ -22,13 +18,13 @@ const { title, description = 'Lore — requirements-as-code for AI-assisted prod
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
   </head>
   <body>
     <header class="site-header">
       <nav>
         <a class="brand" href="/">
-          <Logo size={26} />
+          <img src="/images/favicon.png" width="22" height="22" alt="" />
           <span>itsthelore</span>
         </a>
         <div class="links">

@@ -22,6 +22,19 @@ Adding a new product section:
 3. Add `src/pages/<slug>/index.astro` and `src/pages/<slug>/[...slug].astro`
    (copy the `rac-core` versions as a starting point).
 
+## Design system
+
+This site uses the Lore brand identity, not an invented theme: colors,
+type, and chrome are carried over from `rac-core`'s
+`rac-localview/src/styles/tokens.css` (see that repo's `DESIGN.md` for the
+five rules — warm near-black surfaces, one dominant amber hue, dashed
+chrome for containers vs. solid for interactive elements, mono everywhere,
+sharp corners). `public/fonts/` and `public/images/lamplighter.png` /
+`favicon.png` are one-time copies of the same source assets, licensed
+OFL (see `public/fonts/OFL.txt`) — the org site owns the canonical brand
+assets per ADR-092 ("the brand lives at the org"), and product docs sites
+should match this look, not the other way around.
+
 ## Local development
 
 ```sh
