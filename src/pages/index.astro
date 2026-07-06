@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Lore — itsthelore">
+  <p class="eyebrow">Lore</p>
+  <h1>Requirements-as-code for AI-assisted product teams.</h1>
+  <p class="prose">
+    Lore models product-management knowledge — requirements, decisions,
+    roadmaps, prompts, and designs — as deterministic, typed Markdown
+    artifacts. Its engine, <strong>RAC</strong>, validates that knowledge as
+    a corpus, so agents and humans work from the same grounded source of
+    truth instead of drifting docs and stale memory.
+  </p>
+
+  <div class="card-grid">
+    <a class="card" href="/rac-core/">
+      <h3>rac-core</h3>
+      <p>The RAC engine and CLI — artifact schemas, validation, relationships, and the corpus toolchain.</p>
+    </a>
+    <div class="card disabled">
+      <h3>rac-ci</h3>
+      <p>CI delivery — Watchkeeper, Gatekeeper, and audit actions. Coming soon.</p>
+    </div>
+    <div class="card disabled">
+      <h3>rac-connectors</h3>
+      <p>Inbound and outbound integrations. Coming soon.</p>
+    </div>
+  </div>
+</BaseLayout>

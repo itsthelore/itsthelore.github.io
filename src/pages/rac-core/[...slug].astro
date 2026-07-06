@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('rac-core');
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/\.md$/, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const title = entry.data.title ?? headings.find((h) => h.depth === 1)?.text ?? entry.id;
+---
+<BaseLayout title={`${title} — rac-core docs`}>
+  <div class="docs-sidebar">
+    <nav>
+      <a href="/rac-core/">&larr; All rac-core docs</a>
+    </nav>
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+
+# Build-time vendored content (see ADR-101 — never committed).
+.vendor/
+src/content/rac-core/*
+!src/content/rac-core/.gitkeep

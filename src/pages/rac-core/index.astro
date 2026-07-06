@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const rawEntries = (await getCollection('rac-core')).sort((a, b) => a.id.localeCompare(b.id));
+const entries = await Promise.all(
+  rawEntries.map(async (entry) => {
+    const { headings } = await render(entry);
+    const title = entry.data.title ?? headings.find((h) => h.depth === 1)?.text ?? entry.id;
+    return { entry, title };
+  }),
+);
+---
+<BaseLayout title="rac-core docs — itsthelore">
+  <p class="eyebrow">rac-core</p>
+  <h1>Documentation</h1>
+  <p class="prose">
+    Vendored from <a href="https://github.com/itsthelore/rac-core">itsthelore/rac-core</a>'s
+    <code>docs/</code> at build time (ADR-101). This content is never edited
+    here — it always mirrors the source repository.
+  </p>
+  <ul>
+    {entries.map(({ entry, title }) => (
+      <li><a href={`/rac-core/${entry.id.replace(/\.md$/, '')}/`}>{title}</a></li>
+    ))}
+  </ul>
+</BaseLayout>
