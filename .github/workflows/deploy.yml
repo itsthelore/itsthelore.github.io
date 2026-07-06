@@ -1,5 +1,9 @@
 name: Deploy
 
+# Build-only strict MkDocs build so a broken vendored page or nav entry
+# fails CI instead of deploying. See scripts/vendor-docs.sh and rac-core's
+# ADR-101 for the vendoring contract.
+
 on:
   push:
     branches: [main]
@@ -19,15 +23,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
+          python-version: "3.12"
+      - name: Install MkDocs
+        run: pip install mkdocs==1.6.1 mkdocs-material==9.7.6
+      - name: Vendor product docs
+        run: ./scripts/vendor-docs.sh
+      - name: Build site (strict)
+        run: mkdocs build --strict
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: site
 
   deploy:
     needs: build
