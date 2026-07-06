@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Lore — requirements-as-code for AI-assisted product teams.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a class="brand" href="/">itsthelore</a>
+        <div class="links">
+          <a href="/rac-core/">rac-core</a>
+          <a href="https://github.com/itsthelore">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div>&copy; {new Date().getFullYear()} itsthelore. Built with Astro.</div>
+    </footer>
+  </body>
+</html>
