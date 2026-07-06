@@ -1,7 +1,3 @@
----
-title: All essays
----
-
 # Essays
 
 Longer-form writing from the itsthelore team — on requirements-as-code,
