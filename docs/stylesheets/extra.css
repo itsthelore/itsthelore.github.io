@@ -368,36 +368,6 @@ body,
   font-size: 0.875rem;
 }
 
-/* ---- featured essay (front-and-centre callout) -------------------------- */
-.md-typeset .lore-featured {
-  margin-top: 0;
-  padding: 1.75rem 2rem;
-  background: var(--lore-bg-panel);
-  border: 1px solid var(--lore-accent);
-  border-radius: var(--lore-radius-lg);
-}
-.md-typeset .lore-featured .eyebrow {
-  margin-bottom: 0.5rem;
-}
-.md-typeset .lore-featured h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1.3rem;
-}
-.md-typeset .lore-featured h2 a {
-  color: var(--lore-text);
-  text-decoration: none;
-}
-.md-typeset .lore-featured h2 a:hover {
-  color: var(--lore-accent);
-}
-.md-typeset .lore-featured p {
-  color: var(--lore-text-muted);
-  margin: 0 0 1.25rem;
-}
-.md-typeset .lore-featured .lore-btn {
-  margin: 0;
-}
-
 /* ---- landing components ------------------------------------------------ */
 .lore-steps {
   display: grid;
