@@ -1,0 +1,69 @@
+site_name: Lore
+site_description: >-
+  Requirements-as-code for AI-assisted product teams — the itsthelore
+  organisation's documentation site.
+site_url: https://itsthelore.github.io/
+repo_url: https://github.com/itsthelore
+repo_name: itsthelore
+
+theme:
+  name: material
+  custom_dir: overrides
+  font: false
+  language: en
+  favicon: images/favicon.png
+  palette:
+    scheme: default
+  features:
+    - content.code.copy
+    - navigation.top
+    - navigation.footer
+    - navigation.sections
+    - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: "© 2026 itsthelore"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/itsthelore
+
+plugins:
+  - search
+
+# rac-core/integration-recipes.md deliberately links to examples/ outside
+# docs_dir (rendered by GitHub, not this site) — not a broken link, just one
+# MkDocs can't resolve locally. Downgraded so --strict doesn't abort on
+# vendored content we don't author. rac-core's own docs.yml build has the
+# same warning and is not currently strict-clean for it either.
+validation:
+  links:
+    not_found: info
+
+nav:
+  - Home: index.md
+  - Get started:
+      - Overview: rac-core/index.md
+      - Quickstart: rac-core/quickstart.md
+      - Connect your agent: rac-core/mcp.md
+  - Guides:
+      - Shared Server: rac-core/shared-server.md
+      - Context Cost: rac-core/context-cost.md
+      - Watchkeeper: rac-core/watchkeeper.md
+      - Repository Workflow: rac-core/repo-workflow.md
+      - Examples: rac-core/examples.md
+  - Reference:
+      - CLI Reference: rac-core/cli.md
+      - Artifacts: rac-core/artifacts.md
+      - Relationships: rac-core/relationships.md
+      - Validation: rac-core/validation.md
+  - Operate:
+      - Governance: rac-core/governance.md
+      - Security: rac-core/security.md
+      - OKF Profile: rac-core/okf-profile.md
+  - Project:
+      - Ecosystem: rac-core/ecosystem.md
+      - Testing & Contributing: rac-core/testing.md

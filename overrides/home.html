@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+
+{#
+  Custom splash home for the Lore docs site, rendered in the org site's
+  light theme (near-white ground, one deep-amber accent, Inter for prose,
+  JetBrains Mono for code). The below-the-fold marketing sections stay in
+  docs/index.md and render through {{ page.content }} so they remain plain
+  Markdown.
+#}
+
+{% block content %}
+<section class="lore-splash" markdown="0">
+  <p class="lore-splash__eyebrow">Requirements-as-code for AI-assisted teams</p>
+  <h1 class="lore-splash__title">Coding agents that respect your decisions.</h1>
+  <p class="lore-splash__sub">Lore serves your team's recorded requirements, decisions,
+    and designs to Claude Code and Cursor over MCP — typed Markdown in your repo,
+    validated in CI, read-only at serve time. No RAG, no guessing.</p>
+
+  <div class="lore-splash__actions">
+    <div class="lore-install">
+      <span class="lore-install__prompt">$</span>
+      <code id="lore-install-cmd">pip install rac-core</code>
+      <button class="lore-install__copy" type="button" data-clipboard-target="#lore-install-cmd" aria-label="Copy install command">copy</button>
+    </div>
+    <p class="lore-splash__note">Requires Python 3.11+ &middot; one package, two names on PyPI:
+      <code>rac-core</code> (alias <code>requirements-as-code</code>). Installs the
+      <code>rac</code> CLI and the <code>lore</code> MCP server.</p>
+
+    <nav class="lore-cta" aria-label="Get started">
+      <a class="lore-btn lore-btn--primary" href="{{ 'rac-core/quickstart/' | url }}">Quickstart →</a>
+      <a class="lore-btn" href="https://github.com/itsthelore">View on GitHub</a>
+    </nav>
+  </div>
+</section>
+
+<div class="lore-below">
+  {{ page.content }}
+</div>
+
+<script>
+  document.querySelectorAll(".lore-install__copy").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var target = document.querySelector(button.dataset.clipboardTarget);
+      if (!target) return;
+      navigator.clipboard.writeText(target.innerText).then(function () {
+        var original = button.textContent;
+        button.textContent = "copied";
+        button.classList.add("is-copied");
+        setTimeout(function () {
+          button.textContent = original;
+          button.classList.remove("is-copied");
+        }, 1500);
+      });
+    });
+  });
+</script>
+{% endblock %}
