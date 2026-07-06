@@ -50,7 +50,7 @@ validation:
 nav:
   - Home: index.md
   - Essays:
-      - Overview: essays.md
+      - All essays: essays.md
       - "Why strict?": rac-spec/why-strict.md
   - Get started:
       - Overview: rac-core/index.md
