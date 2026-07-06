@@ -47,6 +47,28 @@ read access — the deploy workflow uses the default `secrets.GITHUB_TOKEN`.
 Without a token (e.g. local `mkdocs serve`), the count defaults to 0 and the
 hero hides the line entirely.
 
+## Essays
+
+Long-form essays live at `/blog/` (nav label "Essays"), via MkDocs
+Material's built-in [blog plugin](https://squidfunk.github.io/mkdocs-material/plugins/blog/) —
+captured as intent in `rac-core`'s
+[future roadmap](https://github.com/itsthelore/rac-core/blob/main/rac/roadmaps/future/org-site-rac-spec-surface.md)
+ahead of rac-spec's own arrival. To publish one:
+
+1. Add `docs/blog/posts/<slug>.md` with frontmatter:
+   ```yaml
+   ---
+   date: 2026-01-15
+   authors: [itsthelore]
+   ---
+   ```
+2. Write the excerpt, then `<!-- more -->`, then the rest of the post.
+3. Author identity comes from `docs/blog/.authors.yml` — add a new entry
+   there for a named author instead of the shared `itsthelore` one.
+
+Categories and the archive are off (`categories: false`, `archive: false`
+in `mkdocs.yml`) until there's enough volume to need them.
+
 ## Local development
 
 ```sh
