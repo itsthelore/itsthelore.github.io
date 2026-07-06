@@ -12,7 +12,6 @@ theme:
   font: false
   language: en
   favicon: images/favicon.png
-  logo: images/favicon.png
   palette:
     scheme: default
   features:
@@ -20,9 +19,17 @@ theme:
     - navigation.top
     - navigation.footer
     - navigation.sections
+    - toc.follow
 
 extra_css:
   - stylesheets/extra.css
+
+copyright: "© 2026 itsthelore"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/itsthelore
 
 plugins:
   - search
@@ -38,21 +45,25 @@ validation:
 
 nav:
   - Home: index.md
-  - rac-core:
+  - Get started:
       - Overview: rac-core/index.md
       - Quickstart: rac-core/quickstart.md
-      - MCP Server: rac-core/mcp.md
+      - Connect your agent: rac-core/mcp.md
+  - Guides:
       - Shared Server: rac-core/shared-server.md
-      - CLI Reference: rac-core/cli.md
       - Context Cost: rac-core/context-cost.md
       - Watchkeeper: rac-core/watchkeeper.md
+      - Repository Workflow: rac-core/repo-workflow.md
+      - Examples: rac-core/examples.md
+  - Reference:
+      - CLI Reference: rac-core/cli.md
       - Artifacts: rac-core/artifacts.md
       - Relationships: rac-core/relationships.md
       - Validation: rac-core/validation.md
+  - Operate:
       - Governance: rac-core/governance.md
       - Security: rac-core/security.md
       - OKF Profile: rac-core/okf-profile.md
-      - Repository Workflow: rac-core/repo-workflow.md
-      - Examples: rac-core/examples.md
+  - Project:
       - Ecosystem: rac-core/ecosystem.md
       - Testing & Contributing: rac-core/testing.md

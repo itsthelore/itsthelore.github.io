@@ -1,19 +1,30 @@
 /*
- * Lore org-site theme — a light variant of rac-core's rac-localview design
- * system (rac-localview/src/styles/tokens.css), driving MkDocs Material's
- * default (light) scheme. Same five rules, surfaces and text inverted from
- * dark to light, amber/teal/green re-tuned for AA contrast on a light
- * ground; rac-core's own dark tokens are unchanged.
+ * Lore org-site theme — near-white ground, near-black text, one deep-amber
+ * accent, driving MkDocs Material's default (light) scheme.
  *
- * Five rules carried over from rac-localview/DESIGN.md (rule 1 inverted):
- *   1. Three surfaces, warm near-white, never pure white.
- *   2. One hue dominates: the lantern amber. Teal/green are semantic only.
- *   3. Dashed borders = container chrome; solid borders = interactive.
- *   4. Mono everywhere (JetBrains Mono, weights 400/700).
- *   5. Sharp corners.
+ * The site shares exactly three brand constants with rac-localview (the
+ * runtime product UI): the amber hue (deep #B45309 on this light ground,
+ * bright in the dark product UI), JetBrains Mono as the voice of code, and
+ * the lamplighter at favicon size only. Ground, body type, border style,
+ * and corner language are per-surface — the site and the product rhyme,
+ * they do not match.
  */
 
 /* ---- fonts (self-hosted, no external requests) ---------------------- */
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
 @font-face {
   font-family: "JetBrains Mono";
   src: url("../fonts/JetBrainsMono-Regular.woff2") format("woff2");
@@ -29,29 +40,48 @@
   font-display: swap;
 }
 
-/* ---- tokens ----------------------------------------------------------
- * Light surfaces (warm cream, not pure white); amber/teal/green deepened
- * from rac-localview's dark-mode values so they hit WCAG AA as text on a
- * light ground. --lore-accent-bright keeps the vivid original amber for
- * solid fills (dark text on top); --lore-accent is the deepened version
- * used for headings/links/accent text. */
+/* ---- design tokens --------------------------------------------------- */
 :root {
-  --lore-bg: #faf8f3;
-  --lore-bg-panel: #f2eee3;
-  --lore-bg-element: #e8e1cf;
-  --lore-text: #2b2a25;
-  --lore-text-muted: #6b6658;
-  --lore-border-subtle: #e3dbc5;
-  --lore-border: #d2c39d;
-  --lore-border-active: #a8762a;
-  --lore-accent: #b3690c;
-  --lore-accent-bright: #f5a623;
-  --lore-accent-muted: #fbead1;
-  --lore-info: #12806d;
-  --lore-success: #1f7a43;
-  --lore-mono: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+  /* surfaces — near-white, one whisper of warmth for continuity with amber */
+  --lore-bg:            #fcfcfb;
+  --lore-bg-panel:      #f6f6f4;   /* code blocks, footer, search field */
+  --lore-bg-element:    #efefed;   /* inline code, chips */
+
+  /* text */
+  --lore-text:          #111113;   /* ~18:1 on bg — AAA */
+  --lore-text-muted:    #63635e;   /* ~5.9:1 on bg, ~5.6:1 on panel — AA */
+
+  /* borders — low-alpha solid hairlines, never opaque tan */
+  --lore-border-subtle: rgba(17, 17, 19, 0.07);
+  --lore-border:        rgba(17, 17, 19, 0.12);
+
+  /* accent — ONE hue: links, active nav, focus. Nothing structural. */
+  --lore-accent:        #B45309;   /* 4.9:1 on bg — AA normal text */
+  --lore-accent-hover:  #92400E;   /* ~6.5:1 */
+  --lore-accent-bright: #f5a623;   /* focus rings / non-text touches ONLY */
+
+  /* semantic */
+  --lore-success:       #1f7a43;   /* success states only, never links */
+
+  /* primary action (Vercel-style near-black button) */
+  --lore-btn-bg:        #111113;
+  --lore-btn-bg-hover:  #27272a;
+  --lore-btn-fg:        #ffffff;   /* ~17.8:1 */
+
+  /* radii — decided once, used everywhere */
+  --lore-radius-sm: 6px;   /* inline code, chips, copy button */
+  --lore-radius-md: 8px;   /* buttons, code blocks, install card, search */
+  --lore-radius-lg: 12px;  /* cards / panels */
+
+  /* type */
+  --lore-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --lore-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* shadow — one value, cards only, optional */
+  --lore-shadow-card: 0 1px 2px rgba(17, 17, 19, 0.04);
 }
 
+/* ---- Material scheme wiring ------------------------------------------ */
 /* Drive Material's default (light) scheme from the lore palette. */
 [data-md-color-scheme="default"] {
   --md-default-bg-color: var(--lore-bg);
@@ -60,42 +90,82 @@
   --md-default-fg-color--lighter: var(--lore-text-muted);
   --md-default-fg-color--lightest: var(--lore-border-subtle);
 
-  --md-primary-fg-color: var(--lore-bg-panel);
+  /* header ground = page ground; the hairline + blur distinguish it */
+  --md-primary-fg-color: var(--lore-bg);
   --md-primary-bg-color: var(--lore-text);
   --md-primary-bg-color--light: var(--lore-text-muted);
 
-  --md-accent-fg-color: var(--lore-accent-bright);
+  /* Material uses accent-fg for link hover */
+  --md-accent-fg-color: var(--lore-accent-hover);
 
   --md-typeset-color: var(--lore-text);
-  --md-typeset-a-color: var(--lore-info);
+  --md-typeset-a-color: var(--lore-accent);
 
   --md-code-bg-color: var(--lore-bg-panel);
   --md-code-fg-color: var(--lore-text);
 
+  /* footer contrast fix */
   --md-footer-bg-color: var(--lore-bg-panel);
-  --md-footer-bg-color--dark: var(--lore-bg);
+  --md-footer-bg-color--dark: var(--lore-bg-panel);
+  --md-footer-fg-color: var(--lore-text);
+  --md-footer-fg-color--light: var(--lore-text-muted);
+  --md-footer-fg-color--lighter: var(--lore-text-muted);
 
-  --md-text-font-family: var(--lore-mono);
+  --md-text-font-family: var(--lore-sans);
   --md-code-font-family: var(--lore-mono);
 }
 
+/* Belt-and-braces alongside the Material var. */
 body,
 .md-typeset {
-  font-family: var(--lore-mono);
+  font-family: var(--lore-sans);
 }
 
-/* Headings in amber, the dominant hue. */
+/* ---- headings — near-black, weight hierarchy ------------------------- */
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3 {
-  color: var(--lore-accent);
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  color: var(--lore-text);
+  font-weight: 600;
+}
+.md-typeset h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.md-typeset h2 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-top: 3rem;
+}
+.md-typeset h3 {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
-/* Search field and header tuned to the panel surface. */
+/* ---- header ----------------------------------------------------------- */
 .md-header {
-  border-bottom: 1px dashed var(--lore-border);
+  background: rgba(252, 252, 251, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--lore-border-subtle);
+  color: var(--lore-text);
+  box-shadow: none;
+}
+/* Wordmark comes from the styled site name; hide the image logo. */
+.md-header__button.md-logo {
+  display: none;
+}
+.md-header__title {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-size: 1rem;
+}
+.md-search__form {
+  background: var(--lore-bg-element);
+  border-radius: var(--lore-radius-md);
 }
 
 /* ===================================================================== */
@@ -104,106 +174,97 @@ body,
 .lore-splash {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  max-width: 46rem;
+  gap: 1.5rem;
+  text-align: center;
+  max-width: 52rem;
   margin: 0 auto;
-  padding: 2.5rem 0 2rem;
-  text-align: left;
+  padding: 5.5rem 0 4rem;
 }
 
-/* Lead row: mascot left, headline + subhead right, top-aligned so the
-   mascot's top sits with the first line of the headline. */
-.lore-splash__lead {
-  display: flex;
-  align-items: flex-start;
-  gap: 2.5rem;
-}
-
-.lore-splash__mascot {
-  flex: 0 0 auto;
-  width: 220px;
-  height: auto;
-  display: block;
-  margin-top: -0.5rem;
-  padding: 1rem;
-  border-radius: 1.25rem;
-  background: radial-gradient(
-    60% 55% at 50% 45%,
-    rgba(245, 166, 35, 0.1),
-    transparent 70%
-  );
-}
-
-.lore-splash__intro {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.lore-splash__title {
-  color: var(--lore-accent) !important;
-  font-size: 1.7rem;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 0.5rem;
-}
-
-.lore-splash__sub {
+/* Prefixed with .md-typeset: the splash renders inside Material's article,
+   so these must out-rank .md-typeset h1/p element rules (incl. their large
+   element margins, which otherwise leak into the flex gaps). */
+.md-typeset .lore-splash__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--lore-text-muted);
-  font-size: 1rem;
+  line-height: 1;
   margin: 0;
 }
 
-/* Actions band: full width beneath the lead row. */
+.md-typeset .lore-splash__title {
+  color: var(--lore-text) !important;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.md-typeset .lore-splash__sub {
+  font-size: 1.125rem;
+  color: var(--lore-text-muted);
+  line-height: 1.6;
+  max-width: 38rem;
+  margin: 0 auto;
+}
+
+/* Actions band beneath the headline. */
 .lore-splash__actions {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-/* Install command — dashed terminal chrome, teal command text. */
+/* ---- install card ----------------------------------------------------- */
 .lore-install {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  max-width: 30rem;
   width: 100%;
+  margin: 0 auto;
   background: var(--lore-bg-panel);
-  border: 1px dashed var(--lore-border);
+  border: 1px solid var(--lore-border-subtle);
+  border-radius: var(--lore-radius-md);
   padding: 0.65rem 0.85rem;
-  margin: 0;
 }
-.lore-install code {
+/* .md-typeset prefix: must out-rank the docs-polish .md-typeset code chip
+   rule, or the command renders as a boxed chip inside the boxed card. */
+.md-typeset .lore-install code {
   flex: 1 1 auto;
-}
-.lore-install__copy {
-  flex: 0 0 auto;
+  font-family: var(--lore-mono);
+  font-size: 0.875em;
+  color: var(--lore-text);
+  font-weight: 500;
+  background: none;
+  padding: 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 .lore-install__prompt {
   color: var(--lore-text-muted);
+  font-family: var(--lore-mono);
   user-select: none;
 }
-.lore-install code,
 .lore-install__copy {
-  font-family: var(--lore-mono);
-  font-size: 0.9rem;
-}
-.lore-install code {
-  color: var(--lore-info);
-  font-weight: 700;
-  background: none;
-  padding: 0;
-  white-space: nowrap;
-}
-.lore-install__copy {
+  flex: 0 0 auto;
   border: 1px solid var(--lore-border);
-  border-radius: 2px;
-  background: var(--lore-bg-element);
+  border-radius: var(--lore-radius-sm);
+  background: var(--lore-bg);
   color: var(--lore-text);
+  font-family: var(--lore-sans);
+  font-size: 0.8125rem;
   padding: 0.1rem 0.5rem;
   cursor: pointer;
   transition: border-color 120ms, color 120ms;
 }
 .lore-install__copy:hover {
-  border-color: var(--lore-border-active);
+  border-color: var(--lore-accent);
   color: var(--lore-accent);
 }
 .lore-install__copy.is-copied {
@@ -211,74 +272,130 @@ body,
   border-color: var(--lore-success);
 }
 
-.lore-splash__note {
+.md-typeset .lore-splash__note {
   color: var(--lore-text-muted);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
   margin: 0;
 }
-.lore-splash__note code {
+.md-typeset .lore-splash__note code {
   background: none;
   color: var(--lore-text);
   padding: 0;
 }
 
-/* CTA row — first button is the amber primary; rest are outlined. */
+/* ---- buttons ----------------------------------------------------------- */
 .lore-cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  justify-content: flex-start;
+  gap: 0.75rem;
+  justify-content: center;
 }
+/* Secondary (default) button: quiet outline. */
 .lore-btn {
   display: inline-block;
-  padding: 0.5rem 1.1rem;
+  padding: 0.625rem 1.25rem;
+  background: transparent;
   border: 1px solid var(--lore-border);
-  border-radius: 2px;
+  border-radius: var(--lore-radius-md);
   color: var(--lore-text) !important;
-  font-weight: 700;
+  font-family: var(--lore-sans);
+  font-weight: 500;
+  font-size: 0.9375rem;
   text-decoration: none;
   transition: border-color 120ms, color 120ms, background 120ms;
 }
 .lore-btn:hover {
-  border-color: var(--lore-border-active);
-  color: var(--lore-accent) !important;
+  border-color: rgba(17, 17, 19, 0.24);
 }
+/* Primary: near-black fill. */
 .lore-btn--primary {
-  background: var(--lore-accent-bright);
-  border-color: var(--lore-accent-bright);
-  color: var(--lore-text) !important;
+  background: var(--lore-btn-bg);
+  border-color: var(--lore-btn-bg);
+  color: var(--lore-btn-fg) !important;
 }
 .lore-btn--primary:hover {
-  background: var(--lore-accent);
-  border-color: var(--lore-accent);
-  color: var(--lore-bg) !important;
-}
-.lore-btn--ghost {
-  color: var(--lore-text-muted) !important;
+  background: var(--lore-btn-bg-hover);
+  border-color: var(--lore-btn-bg-hover);
 }
 
-/* ---- below-the-fold marketing sections ----------------------------- */
+/* ---- below-the-fold landing sections ---------------------------------- */
 .lore-below {
-  max-width: 46rem;
-  margin: 1.5rem auto 0;
+  max-width: 44rem;
+  margin: 5rem auto 0;
 }
-/* Each H2 section reads as a panel divider in the lore chrome. */
+/* Whitespace separates sections — no rules between them. */
 .lore-below h2 {
-  border-top: 1px dashed var(--lore-border-subtle);
-  padding-top: 1.5rem;
-  margin-top: 2rem;
-}
-.lore-below > h2:first-child {
   border-top: 0;
   padding-top: 0;
+  margin-top: 4.5rem;
+}
+.lore-below > h2:first-child {
   margin-top: 0;
 }
+/* The scenario pull-quote is content, not an aside — don't mute it. */
 .lore-below blockquote {
   border-left: 2px solid var(--lore-accent);
-  color: var(--lore-text-muted);
+  color: var(--lore-text);
+  font-size: 1.0625rem;
 }
 .lore-below table {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
+}
+
+/* ---- landing components ------------------------------------------------ */
+.lore-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.lore-steps h3 {
+  margin-top: 0.25rem;
+}
+.lore-step__num {
+  font-family: var(--lore-mono);
+  font-size: 0.8125rem;
+  color: var(--lore-accent);
+}
+
+.lore-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.lore-card {
+  background: var(--lore-bg);
+  border: 1px solid var(--lore-border-subtle);
+  border-radius: var(--lore-radius-lg);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--lore-shadow-card);
+}
+.lore-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+.lore-card p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--lore-text-muted);
+}
+
+.lore-ctaband {
+  text-align: center;
+  margin-top: 4.5rem;
+  padding: 3rem 1.5rem;
+  background: var(--lore-bg-panel);
+  border-radius: var(--lore-radius-lg);
+}
+/* The band carries its own padding — don't stack the section gap on top. */
+.md-typeset .lore-ctaband h2 {
+  margin-top: 0;
+}
+
+.lore-footnote {
+  font-size: 0.875rem;
+  color: var(--lore-text-muted);
 }
 
 /* Hide the splash page's empty title/edit chrome. */
@@ -286,28 +403,46 @@ body,
   display: none;
 }
 
-@media screen and (max-width: 48rem) {
-  .lore-splash {
-    text-align: center;
-  }
-  .lore-splash__lead {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-  }
-  .lore-splash__mascot {
-    margin-top: 0;
-  }
-  .lore-cta {
-    justify-content: center;
-  }
+/* ---- docs polish (applies passively to vendored rac-core pages) ------- */
+.md-typeset code {
+  background: var(--lore-bg-element);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.875em;
+  color: var(--lore-text);
+  border: 0;
+  /* Don't split flag tokens like --json mid-word on narrow screens. */
+  word-break: keep-all;
+}
+.md-typeset pre > code {
+  border-radius: var(--lore-radius-md);
+  overflow-x: auto;
+}
+.md-typeset table:not([class]) {
+  font-size: 0.875rem;
+}
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  border-color: var(--lore-border-subtle);
 }
 
-@media screen and (max-width: 30rem) {
-  .lore-splash__title {
-    font-size: 1.35rem;
-  }
-  .lore-install code {
-    white-space: normal;
+/* Sidebar navigation. */
+.md-nav {
+  font-size: 0.8125rem;
+}
+.md-nav__item--section > .md-nav__link {
+  font-weight: 600;
+  color: var(--lore-text-muted);
+}
+.md-nav__link--active,
+.md-nav__link[aria-current="page"] {
+  color: var(--lore-accent);
+}
+
+/* ---- media queries ------------------------------------------------------ */
+@media screen and (max-width: 48rem) {
+  .lore-steps,
+  .lore-grid {
+    grid-template-columns: 1fr;
   }
 }
