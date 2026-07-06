@@ -5,6 +5,18 @@ hide:
   - toc
 ---
 
+<div class="lore-featured" markdown="0">
+  <p class="eyebrow">New essay</p>
+  <h2><a href="rac-spec/why-strict/">Requirements as Code: a strict semantic layer over OKF</a></h2>
+  <p>Google Cloud's Open Knowledge Format standardizes the carrier for
+    organizational knowledge — deliberately permissive, on purpose. RAC
+    specifies what one high-stakes category of knowledge needs that carrier
+    to guarantee: identity that survives refactoring, a closed status
+    lifecycle, typed relationships with referential integrity, and
+    write-time enforcement. Today we published the spec.</p>
+  <a class="lore-btn lore-btn--primary" href="rac-spec/why-strict/">Read the essay →</a>
+</div>
+
 ## How it works
 
 <div class="lore-steps" markdown="0">
