@@ -19,6 +19,7 @@ theme:
     - content.code.copy
     - navigation.top
     - navigation.footer
+    - navigation.indexes
     - toc.follow
 
 extra_css:
@@ -50,7 +51,7 @@ validation:
 nav:
   - Home: index.md
   - Essays:
-      - All essays: essays.md
+      - essays.md
       - "Why strict?": rac-spec/why-strict.md
   - Get started:
       - Overview: rac-core/index.md
